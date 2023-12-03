@@ -7,8 +7,14 @@ lazy_static! {
 
 fn main() {
     let input = std::fs::read_to_string("input.txt").unwrap();
+
+    let now = std::time::Instant::now();
     println!("Part 01: {}", part_01(&input));
+    println!("Time: {}µs", now.elapsed().as_micros());
+
+    let now = std::time::Instant::now();
     println!("Part 02: {}", part_02(&input));
+    println!("Time: {}µs", now.elapsed().as_micros());
 }
 
 fn part_01(input: &str) -> u32 {
