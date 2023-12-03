@@ -12,7 +12,7 @@ fn main() {
 }
 
 fn part_01(input: &str) -> u32 {
-    let bag = Bag {
+    let bag = Round {
         red: 12,
         blue: 14,
         green: 13,
@@ -32,12 +32,6 @@ fn part_02(input: &str) -> u32 {
         .map(|line| Game::from(line.to_string()))
         .map(|game| game.get_power())
         .sum()
-}
-
-struct Bag {
-    red: u32,
-    blue: u32,
-    green: u32,
 }
 
 struct Round {
@@ -66,7 +60,7 @@ impl From<String> for Round {
 }
 
 impl Round {
-    fn is_possible(&self, bag: &Bag) -> bool {
+    fn is_possible(&self, bag: &Round) -> bool {
         self.red <= bag.red && self.blue <= bag.blue && self.green <= bag.green
     }
 
@@ -81,7 +75,7 @@ struct Game {
 }
 
 impl Game {
-    fn is_possible(&self, bag: &Bag) -> bool {
+    fn is_possible(&self, bag: &Round) -> bool {
         self.rounds.iter().all(|round| round.is_possible(bag))
     }
 
