@@ -11,7 +11,7 @@ fn main() {
 }
 
 fn part_01(input: &str) -> usize {
-    parse(input)
+    parse_cards(input)
         .iter()
         .flatten()
         .map(|x| 2_usize.pow(x.len() as u32 - 1))
@@ -19,24 +19,21 @@ fn part_01(input: &str) -> usize {
 }
 
 fn part_02(input: &str) -> usize {
-    let winning_cards = parse(input);
-    let mut wining_instances = vec![1; winning_cards.len() + 1];
+    let cards = parse_cards(input);
+    let mut winners = vec![1; cards.len() + 1];
 
-    winning_cards
-        .iter()
-        .enumerate()
-        .for_each(|(index, winning)| {
-            if let Some(winning) = winning {
-                (0..winning.len()).for_each(|i| {
-                    wining_instances[index + i + 1] += wining_instances[index];
-                });
-            }
-        });
+    cards.iter().enumerate().for_each(|(index, winning)| {
+        if let Some(winning) = winning {
+            (0..winning.len()).for_each(|i| {
+                winners[index + i + 1] += winners[index];
+            });
+        }
+    });
 
-    wining_instances.iter().skip(1).sum()
+    winners.iter().skip(1).sum()
 }
 
-fn parse(input: &str) -> Vec<Option<Vec<usize>>> {
+fn parse_cards(input: &str) -> Vec<Option<Vec<usize>>> {
     input
         .lines()
         .flat_map(|line| line.split(':').last())
