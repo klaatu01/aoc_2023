@@ -1,9 +1,15 @@
 use std::collections::HashMap;
 
 fn main() {
-    let file = std::fs::read_to_string("input.txt").unwrap();
-    println!("{}", part_1(&file));
-    println!("{}", part_2(&file));
+    let input = std::fs::read_to_string("input.txt").unwrap();
+
+    let now = std::time::Instant::now();
+    println!("Part 01: {}", part_1(&input));
+    println!("Time: {}µs", now.elapsed().as_micros());
+
+    let now = std::time::Instant::now();
+    println!("Part 02: {}", part_2(&input));
+    println!("Time: {}µs", now.elapsed().as_micros());
 }
 
 fn part_1(file: &str) -> usize {
